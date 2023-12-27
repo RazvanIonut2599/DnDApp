@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.MainFragments.CombatFragment">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="600dp">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:translationX="0dp">
+
+        <TextView
+            android:id="@+id/labelMaxHealth"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Maximum Health"
+            android:labelFor="@id/editMaxHealth"/>
+        <EditText
+            android:id="@+id/editMaxHealth"
+            android:layout_width="90dp"
+            android:layout_height="60dp"
+            android:ems="10"
+            android:gravity="top"
+            android:inputType="text"
+            android:importantForAutofill="no"
+           />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:translationY="60dp">
+
+            <TextView
+                android:id="@+id/labelCurrentHealth"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Current Health"
+                android:labelFor="@id/editCurrentHealth"/>
+            <EditText
+                android:id="@+id/editCurrentHealth"
+                android:layout_width="90dp"
+                android:layout_height="60dp"
+                android:ems="10"
+                android:gravity="top"
+                android:inputType="text"
+                android:importantForAutofill="no"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:translationY="120dp">
+
+            <TextView
+                android:id="@+id/labelTempHealth"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Temporary Health"
+                android:labelFor="@id/editTempHealth"/>
+            <EditText
+                android:id="@+id/editTempHealth"
+                android:layout_width="90dp"
+                android:layout_height="60dp"
+                android:ems="10"
+                android:gravity="top"
+                android:inputType="text"
+                android:importantForAutofill="no"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:translationY="180dp">
+
+            <TextView
+                android:id="@+id/labelHitDice"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Hit Dice"
+                android:labelFor="@id/editHitDice"/>
+            <EditText
+                android:id="@+id/editHitDice"
+                android:layout_width="90dp"
+                android:layout_height="60dp"
+                android:ems="10"
+                android:gravity="top"
+                android:inputType="text"
+                android:importantForAutofill="no"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:translationY="240dp">
+
+            <TextView
+                android:id="@+id/labelMovement"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Movement"
+                android:labelFor="@id/editMovement"/>
+            <EditText
+                android:id="@+id/editMovement"
+                android:layout_width="90dp"
+                android:layout_height="60dp"
+                android:ems="10"
+                android:gravity="top"
+                android:inputType="text"
+                android:importantForAutofill="no"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:translationY="300dp">
+
+            <TextView
+                android:id="@+id/labelInitiative"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Initiative"
+                android:labelFor="@id/editInitiative"/>
+            <EditText
+                android:id="@+id/editInitiative"
+                android:layout_width="90dp"
+                android:layout_height="60dp"
+                android:ems="10"
+                android:gravity="top"
+                android:inputType="text"
+                android:importantForAutofill="no"
+                />
+        </LinearLayout>
+    </FrameLayout>
+
+</FrameLayout>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">DnDCharacterSheet</string>
+    <string name="basicInfoFragment">Basic info fragment</string>
+    <string name="combatFragment">Combat fragment</string>
+    <string name="inventoryFragment">Inventory fragment</string>
+    <string name="journalFragment">Journal fragment</string>
+    <string name="spellsFragment">Spells fragment</string>
+
+</resources>
