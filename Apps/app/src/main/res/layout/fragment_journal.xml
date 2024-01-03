@@ -8,17 +8,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
         <Button
-            android:id="@+id/buttonAddJournalEntry"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="Add Journal Entry"
-            android:textSize="14sp"
-            />
+            android:id="@+id/addJournalEntry"
+            android:text="Add journal entry"
+            style="@style/Widget.AppCompat.Button"
+            >
+
+        </Button>
+
         <ListView
+            android:id="@+id/listViewJournalEntry"
             android:layout_width="match_parent"
-            android:layout_height="600dp">
+            android:layout_height="600dp"
+            android:divider="@color/black"
+            android:dividerHeight="2dp"
+            android:listSelector="@color/black"
+            >
         </ListView>
 
     </LinearLayout>

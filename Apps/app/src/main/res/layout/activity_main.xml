@@ -8,126 +8,96 @@
     android:baselineAligned="false"
     tools:context=".MainActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="389dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Dungeons and Dragons Character Sheet"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.545"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/buttonInventory"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="110dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="Inventory"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textSize="12sp" />
+                <Button
+                    android:id="@+id/buttonBasicInfo"
+                    android:layout_width="120dp"
+                    android:layout_height="50dp"
+                    android:text="Info"
+                    android:textSize="14sp"/>
+                <Button
+                    android:id="@+id/buttonCombat"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="120dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="17dp"
+                    android:text="Combat"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/buttonJournal"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="110dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="Journal"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textSize="12sp" />
+                <Button
+                    android:id="@+id/buttonEditMode"
+                    android:layout_width="75dp"
+                    android:layout_height="60dp"
+                    android:text="Edit"
+                    android:textSize="11sp"/>
+                <Button
+                    android:id="@+id/buttonSave"
+                    android:layout_width="75dp"
+                    android:layout_height="60dp"
+                    android:text="Save"
+                    android:textSize="11sp" />
+                <Button
+                    android:id="@+id/buttonSpells"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="120dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="5dp"
+                    android:text="Spells"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
+        <FrameLayout
+            android:id="@+id/mainViewFragment"
+            android:layout_width="match_parent"
+            android:layout_height="550dp">
+        </FrameLayout>
+        </LinearLayout>
 
-    <Button
-        android:id="@+id/buttonBasicInfo"
-        android:layout_width="100dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="16dp"
-        android:text="Info"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/buttonCombat"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/buttonInventory"
-        app:layout_constraintTop_toTopOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.022" />
 
-    <Button
-        android:id="@+id/buttonInventory"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="110dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="16dp"
-        android:editable="false"
-        android:text="Inventory"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/buttonBasicInfo"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.044" />
-
-    <Button
-        android:id="@+id/buttonCombat"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="120dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="17dp"
-        android:editable="false"
-        android:text="Combat"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/buttonBasicInfo"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.044" />
-
-    <Button
-        android:id="@+id/buttonEditMode"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:text="EDIT"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.975" />
-
-    <Button
-        android:id="@+id/buttonJournal"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="110dp"
-        android:layout_height="60dp"
-
-        android:layout_marginTop="8dp"
-        android:text="Journal"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/buttonSpells"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonInventory"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/buttonSpells"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="120dp"
-        android:layout_height="60dp"
-        android:editable="false"
-        android:text="Spells"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/buttonJournal"
-        app:layout_constraintTop_toBottomOf="@+id/buttonCombat"
-        app:layout_constraintVertical_bias="0.013" />
-
-    <FrameLayout
-        android:id="@+id/mainViewFragment"
-        android:layout_width="350dp"
-        android:layout_height="467dp"
-        android:layout_marginTop="72dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonEditMode"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonBasicInfo"
-        app:layout_constraintVertical_bias="0.272">
-
-    </FrameLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,0 +1,57 @@
+[
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Antagonize",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 3rd-level enchantment",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 30 feet",
+			"property | Components | V, S, M (a playing card depicting a rogue)",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | You whisper magical words that antagonize one creature of your choice within range. The target must make a Wisdom saving throw. On a failed save, the target takes 4d4 psychic damage and must immediately use its reaction to make a melee attack against another creature of your choice that you can see. If the target can't make this attack (for example, because there is no one within its reach or because its reaction is unavailable), the target instead has disadvantage on the next attack roll it makes before the start of your next turn. On a successful save, the target takes half as much damage only.",
+			"section | At higher levels",
+			"text | When you cast this spell using a spell slot of 4th level or higher, the damage increases by 1d4 for each slot level above 3rd."
+		],
+		"tags": [
+			"spell",
+			"BMT",
+			"3rd level",
+			"Enchantment",
+			"Bard",
+			"Sorcerer",
+			"Warlock",
+			"Wizard"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Abi-Dalzim's Horrid Wilting",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 8th-level necromancy",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 150 feet",
+			"property | Components | V, S, M (a bit of sponge)",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | You draw the moisture from every creature in a 30-foot cube centered on a point you choose within range. Each creature in that area must make a Constitution saving throw. Constructs and undead aren't affected, and plants and water elementals make this saving throw with disadvantage. A creature takes 12d8 necrotic damage on a failed save, or half as much damage on a successful one.",
+			"text | Nonmagical plants in the area that aren't creatures, such as trees and shrubs, wither and die instantly."
+		],
+		"tags": [
+			"spell",
+			"XGE",
+			"8th level",
+			"Necromancy",
+			"Sorcerer",
+			"Wizard"
+		]
+	}
+]

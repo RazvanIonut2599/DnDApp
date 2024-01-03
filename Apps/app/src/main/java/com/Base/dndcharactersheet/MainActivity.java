@@ -1,8 +1,13 @@
 package com.Base.dndcharactersheet;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -12,19 +17,36 @@ import androidx.fragment.app.FragmentTransaction;
 import com.Base.dndcharactersheet.Fragments.MainFragments.BasicInfoFragment;
 import com.Base.dndcharactersheet.Fragments.MainFragments.CombatFragment;
 import com.Base.dndcharactersheet.Fragments.MainFragments.InventoryFragment;
-import com.Base.dndcharactersheet.Fragments.PopupFragments.JournalEntryFragment;
 import com.Base.dndcharactersheet.Fragments.MainFragments.JournalFragment;
 import com.Base.dndcharactersheet.Fragments.MainFragments.SpellsFragment;
+import com.Base.dndcharactersheet.HolderClasses.BasicInfoHolder;
+import com.Base.dndcharactersheet.HolderClasses.CombatHolder;
+import com.Base.dndcharactersheet.HolderClasses.InventoryHolder;
+import com.Base.dndcharactersheet.HolderClasses.JournalHolder;
+import com.Base.dndcharactersheet.HolderClasses.MainInformationHolder;
+import com.Base.dndcharactersheet.HolderClasses.SpellsHolder;
+import com.google.gson.Gson;
 
-import Views.MainViews.BasicInfoView;
-import Views.MainViews.CombatView;
-import Views.MainViews.InventoryView;
-import Views.MainViews.JournalView;
-import Views.MainViews.SpellsView;
-import Views.PopupViews.JournalEntryView;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+
+import InterfacesOrAbstracts.FragmentBase;
 
 public class MainActivity extends AppCompatActivity {
+    public String characterFileName;
     public boolean editable=false;
+    public Button editButton;
+    public Button saveButton;
+    LayoutInflater inflater;
     //region fragments
     protected BasicInfoFragment basicInfoF;
     protected CombatFragment combatF;
@@ -32,152 +54,194 @@ public class MainActivity extends AppCompatActivity {
     protected JournalFragment journalF;
     protected SpellsFragment spellsF;
     //endregion
-    //region view properties
-    private BasicInfoView infoView;
-    private CombatView combatView;
-    private InventoryView inventoryView;
-    private JournalView journalView;
-    private SpellsView spellsView;
-    //endregion
+    public MainActivity(){
+        basicInfoF=new BasicInfoFragment(this);
+        combatF=new CombatFragment(this);
+        inventoryF=new InventoryFragment(this);
+        journalF=new JournalFragment(this);
+        spellsF=new SpellsFragment(this);
+        characterFileName ="Lev.txt";
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        inflater= this.getLayoutInflater();
 
-        basicInfoF=new BasicInfoFragment();
-        replaceFragment(basicInfoF);
+        LoadSpellsJson();
+        //region fragment setup
+        editButton=(Button)findViewById(R.id.buttonEditMode);
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editable=!editable;
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentBase f=(FragmentBase) fragmentManager.findFragmentById(R.id.mainViewFragment);
+                if(editable)
+                    f.MakeEditable();
+                else
+                    f.MakeNotEditable();
+            }
+        });
+        saveButton=(Button)findViewById(R.id.buttonSave);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Save(basicInfoF.getHolder(),
+                        combatF.getHolder(),
+                        inventoryF.getHolder(),
+                        journalF.getHolder(),
+                        spellsF.getHolder()
+                        );
+            }
+        });
 
-        combatF=new CombatFragment();
-        inventoryF=new InventoryFragment();
-        journalF=new JournalFragment();
-        spellsF=new SpellsFragment();
-
-        infoView=new BasicInfoView();
-        setupBasicInfo();
-        infoView.MakeNotEditable();
-
-        combatView=new CombatView();
-        setupCombat();
-        combatView.MakeNotEditable();
-
-        inventoryView=new InventoryView();
-        setupInventory();
-        inventoryView.MakeNotEditable();
-
-        journalView=new JournalView();
-        setupJournal();
-        journalView.MakeNotEditable();
-
-        spellsView=new SpellsView();
-        setupSpells();
-        spellsView.MakeNotEditable();
-
-
-    }
-    //Region setup
-    private void setupBasicInfo(){
-        infoView.buttonBasicInfo = (Button)findViewById(R.id.buttonBasicInfo);
-        infoView.buttonBasicInfo.setOnClickListener(new View.OnClickListener() {
+        basicInfoF.buttonBasicInfo = (Button)findViewById(R.id.buttonBasicInfo);
+        basicInfoF.buttonBasicInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 replaceFragment(basicInfoF);
             }
         });
-        infoView.editTextName=findViewById(R.id.editTextName);
-        infoView.editTextClass=findViewById(R.id.editTextClass);
-        //region stats
-        infoView.str=findViewById(R.id.editSTR);
-        infoView.dex=findViewById(R.id.editDEX);
-        infoView.con=findViewById(R.id.editCON);
-        infoView.intel=findViewById(R.id.editINT);
-        infoView.wis=findViewById(R.id.editWIS);
-        infoView.cha=findViewById(R.id.editCHA);
-        //endregion
-        //region skills
-        infoView.athletics=findViewById(R.id.editAthletics);
-        infoView.acrobatics=findViewById(R.id.editAcrobatics);
-        infoView.sleightOfHand=findViewById(R.id.editSleightOfHand);
-        infoView.stealth=findViewById(R.id.editStealth);
-        infoView.arcana=findViewById(R.id.editArcana);
-        infoView.history=findViewById(R.id.editHistory);
-        infoView.investigation=findViewById(R.id.editInvestigation);
-        infoView.nature=findViewById(R.id.editNature);
-        infoView.religion=findViewById(R.id.editReligion);
-        infoView.animalHandling=findViewById(R.id.editAnimalHandling);
-        infoView.insight=findViewById(R.id.editInsight);
-        infoView.medicine=findViewById(R.id.editMedicine);
-        infoView.perception=findViewById(R.id.editPerception);
-        infoView.survival=findViewById(R.id.editSurvival);
-        infoView.deception=findViewById(R.id.editDeception);
-        infoView.intimidation=findViewById(R.id.editIntimidation);
-        infoView.performance=findViewById(R.id.editPerformance);
-        infoView.persuasion=findViewById(R.id.editPersuasion);
-        //endregion
-        infoView.features=findViewById(R.id.editFeatures);
-        infoView.Update();
-    }
-    private void setupCombat(){
-        combatView.buttonCombat = (Button)findViewById(R.id.buttonCombat);
-        combatView.buttonCombat.setOnClickListener(new View.OnClickListener() {
+
+        combatF.buttonCombat=(Button)findViewById(R.id.buttonCombat);
+        combatF.buttonCombat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 replaceFragment(combatF);
             }
         });
-    }
-    private void setupInventory(){
-        inventoryView.buttonInventory =(Button) findViewById(R.id.buttonInventory);
-        inventoryView.buttonInventory.setOnClickListener(new View.OnClickListener() {
+
+        inventoryF.buttonInventory=(Button)findViewById(R.id.buttonInventory);
+        inventoryF.buttonInventory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 replaceFragment(inventoryF);
             }
         });
-        inventoryView.inventory=findViewById(R.id.editInventory);
-    }
-    private void setupJournal(){
-        journalView.buttonJournal=(Button) findViewById(R.id.buttonJournal);
-        journalView.buttonJournal.setOnClickListener(new View.OnClickListener() {
+
+        journalF.buttonJournal=(Button)findViewById(R.id.buttonJournal);
+        journalF.buttonJournal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 replaceFragment(journalF);
             }
         });
-        journalView.addJournalEntry=(Button) findViewById(R.id.buttonAddJournalEntry);
-        journalView.buttonJournal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                JournalEntryFragment newEntryFragment= new JournalEntryFragment();
-                JournalEntryView newEntryView = new JournalEntryView();
-                newEntryView.buttonDoneJournalEntry =(Button) findViewById(R.id.buttonDoneJournalEntry);
-                newEntryView.editJournalEntry=findViewById(R.id.editJournalEntry);
-
-                newEntryView.buttonDoneJournalEntry.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                    }
-                });
-                replaceFragment(newEntryFragment);
-            }
-        });
-    }
-    private void setupSpells(){
-        spellsView.buttonSpells = (Button) findViewById(R.id.buttonSpells);
-        spellsView.buttonSpells.setOnClickListener(new View.OnClickListener() {
+        spellsF.buttonSpells=(Button)findViewById(R.id.buttonSpells);
+        spellsF.buttonSpells.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 replaceFragment(spellsF);
             }
         });
+        replaceFragment(basicInfoF);
+        //endregion
+
+
     }
-    //endregion
-    private void replaceFragment(Fragment fragment){
+    public void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.mainViewFragment,fragment);
         fragmentTransaction.commit();
+
+    }
+    private void closeKeyboard(){
+        View view=this.getCurrentFocus();
+        if(view!=null){
+            InputMethodManager imm=(InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(),0);
+        }
+    }
+    private void LoadSpellsJson(){
+            try {
+                InputStream inputStream = getAssets().open("spells.json");
+                int size=inputStream.available();
+                byte[] buffer=new byte[size];
+                inputStream.read(buffer);
+                inputStream.close();
+
+                String json;
+                int max;
+
+                json=new String(buffer, StandardCharsets.UTF_8);
+                JSONArray jsonArray=new JSONArray(json);
+                max=jsonArray.length();
+
+                String tags,contents;
+                for (int i=0;i<max;i++){
+                    JSONObject spell=jsonArray.getJSONObject(i);
+                    tags=spell.getString("tags");
+                    contents=spell.getString("contents");
+                    Log.e("tag","loadJson tags: \n"+tags+"\ncontents\n"+contents);
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+    }
+
+    private void Save(
+            BasicInfoHolder basicInfo,
+            CombatHolder combatHolder,
+            InventoryHolder inventoryHolder,
+            JournalHolder journalHolder,
+            SpellsHolder spellsHolder
+    ){
+        Gson gson=new Gson();
+        MainInformationHolder mainInfo = new MainInformationHolder(basicInfo,combatHolder,inventoryHolder,journalHolder,spellsHolder);
+        String info = gson.toJson(mainInfo);
+
+        FileOutputStream fos=null;
+        try{
+        fos = openFileOutput(characterFileName,MODE_PRIVATE);
+        fos.write(info.getBytes());
+
+            Toast.makeText(this,"Saved "+characterFileName +" in "+getFilesDir(),Toast.LENGTH_LONG).show();
+            Log.d("Saved","Saved "+characterFileName +" in "+getFilesDir());
+
+        }
+        catch (FileNotFoundException e){
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if(fos!=null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+    }
+    private void Load( BasicInfoHolder basicInfo,
+                       CombatHolder combatHolder,
+                       InventoryHolder inventoryHolder,
+                       JournalHolder journalHolder,
+                       SpellsHolder spellsHolder)
+    {
+        FileInputStream fis=null;
+        try {
+            fis=openFileInput(characterFileName);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader br=new BufferedReader(isr);
+            StringBuilder sb =new StringBuilder();
+
+            String json;
+            while((json =br.readLine()) !=null){
+                    sb.append(json).append("\n");
+
+                    //split text into parts
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 }
