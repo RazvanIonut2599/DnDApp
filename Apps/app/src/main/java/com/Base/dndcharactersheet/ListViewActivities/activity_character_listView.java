@@ -6,11 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.Base.dndcharactersheet.R;
 
-public class activity_JournalEntry_ListView extends AppCompatActivity {
+public class activity_character_listView extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.listview_journalentry);
+        setContentView(R.layout.listview_character);
     }
 }

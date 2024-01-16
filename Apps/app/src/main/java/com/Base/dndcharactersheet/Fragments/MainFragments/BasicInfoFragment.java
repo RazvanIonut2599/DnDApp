@@ -6,12 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
-import com.Base.dndcharactersheet.HolderClasses.BasicInfoHolder;
+import com.Base.dndcharactersheet.Fragments.PopupFragments.BasicInfo.AttributesFragment;
+import com.Base.dndcharactersheet.Fragments.PopupFragments.BasicInfo.DetailsFragment;
+import com.Base.dndcharactersheet.Fragments.PopupFragments.BasicInfo.SkillFragment;
+import com.Base.dndcharactersheet.HolderClasses.BasicInfo.BasicInfoHolder;
 import com.Base.dndcharactersheet.MainActivity;
 import com.Base.dndcharactersheet.R;
 
@@ -19,184 +24,105 @@ import InterfacesOrAbstracts.FragmentBase;
 
 public class BasicInfoFragment extends FragmentBase {
     public Button buttonBasicInfo;
-    //region Info
-    public EditText editTextName;
-    public EditText editTextClass;
-    public EditText editTextLevel;
+    public Button buttonSkills;
+    public Button buttonDetails;
+    public Button buttonAttributes;
+    //region Fragments
+    AttributesFragment attributes;
+    DetailsFragment details;
+    SkillFragment skills;
     //endregion
 
-    //region Stats
-    public EditText str; private int strVal;
-    public EditText dex;private int dexVal;
-    public EditText intel;private int intVal;
-    public EditText con;private int conVal;
-    public EditText wis;private int wisVal;
-    public EditText cha;private int chaVal;
-    //endregion
-
-    //region Skills
-    public EditText athletics;
-    public EditText acrobatics;
-    public EditText sleightOfHand;
-    public EditText stealth;
-    public EditText arcana;
-    public EditText history;
-    public EditText investigation;
-    public EditText nature;
-    public EditText religion;
-    public EditText medicine;
-    public EditText perception;
-    public EditText survival;
-    public EditText deception;
-    public EditText intimidation;
-    public EditText performance;
-    public EditText persuasion;
-    public EditText animalHandling;
-    public EditText insight;
-    //endregion
-
-    //region Features
-    public EditText features;
-    //endregion
-
-    public BasicInfoFragment(MainActivity parent){
+    BasicInfoHolder dataHolder;
+    public BasicInfoFragment(MainActivity parent,BasicInfoHolder dataHolder){
         super(R.layout.fragment_basic_info,parent);
+        attributes=new AttributesFragment(parent,this);
+        details=new DetailsFragment(parent,this);
+        skills=new SkillFragment(parent,this);
+
+        this.dataHolder=new BasicInfoHolder();
+        this.setValues(dataHolder);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        created=true;
+        MakeNotEditable();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View infoViewVar = inflater.inflate(R.layout.fragment_basic_info,container,false);
+        BasicInfoFragment thisFragment=this;
+        buttonSkills=(Button)infoViewVar.findViewById(R.id.buttonSkills);
+        buttonSkills.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(skills,mainActivity.getSupportFragmentManager());
+            }
+        });
+        buttonAttributes=(Button) infoViewVar.findViewById(R.id.buttonAttributes);
+        buttonAttributes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(attributes,mainActivity.getSupportFragmentManager());
+            }
+        });
+        buttonDetails=(Button) infoViewVar.findViewById(R.id.buttonDetails);
+        buttonDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(details,mainActivity.getSupportFragmentManager());
+            }
+        });
 
-        editTextName=(EditText) infoViewVar.findViewById(R.id.editTextName);
-        editTextClass=(EditText) infoViewVar.findViewById(R.id.editTextClass);
-
-        //region stats
-        str    =(EditText) infoViewVar.findViewById(R.id.editSTR);
-        dex    =(EditText) infoViewVar.findViewById(R.id.editDEX);
-        con    =(EditText) infoViewVar.findViewById(R.id.editCON);
-        intel  =(EditText) infoViewVar.findViewById(R.id.editINT);
-        wis    =(EditText) infoViewVar.findViewById(R.id.editWIS);
-        cha    =(EditText) infoViewVar.findViewById(R.id.editCHA);
-
-        //endregion
-
-        //region skills
-        athletics      =(EditText) infoViewVar.findViewById(R.id.editAthletics);
-        acrobatics     =(EditText) infoViewVar.findViewById(R.id.editAcrobatics);
-        sleightOfHand  =(EditText) infoViewVar.findViewById(R.id.editSleightOfHand);
-        stealth        =(EditText) infoViewVar.findViewById(R.id.editStealth);
-        arcana         =(EditText) infoViewVar.findViewById(R.id.editArcana);
-        history        =(EditText) infoViewVar.findViewById(R.id.editHistory);
-        investigation  =(EditText) infoViewVar.findViewById(R.id.editInvestigation);
-        nature         =(EditText) infoViewVar.findViewById(R.id.editNature);
-        religion       =(EditText) infoViewVar.findViewById(R.id.editReligion);
-        animalHandling =(EditText) infoViewVar.findViewById(R.id.editAnimalHandling);
-        insight        =(EditText) infoViewVar.findViewById(R.id.editInsight);
-        medicine       =(EditText) infoViewVar.findViewById(R.id.editMedicine);
-        perception     =(EditText) infoViewVar.findViewById(R.id.editPerception);
-        survival       =(EditText) infoViewVar.findViewById(R.id.editSurvival);
-        deception      =(EditText) infoViewVar.findViewById(R.id.editDeception);
-        intimidation   =(EditText) infoViewVar.findViewById(R.id.editIntimidation);
-        performance    =(EditText) infoViewVar.findViewById(R.id.editPerformance);
-        persuasion     =(EditText) infoViewVar.findViewById(R.id.editPersuasion);
-        //endregion
-
-        features   =(EditText) infoViewVar.findViewById(R.id.editFeatures);
-        MakeNotEditable();
         return infoViewVar;
     }
 
     @Override
     public void MakeEditable() {
-        editTextName.setEnabled(true);
-        editTextClass.setEnabled(true);
-
-        str.setEnabled(true);
-        dex.setEnabled(true);
-        intel.setEnabled(true);
-        con.setEnabled(true);
-        wis.setEnabled(true);
-        cha.setEnabled(true);
-
-        athletics.setEnabled(true);
-        acrobatics.setEnabled(true);
-        sleightOfHand.setEnabled(true);
-        stealth.setEnabled(true);
-        arcana.setEnabled(true);
-        history.setEnabled(true);
-        investigation.setEnabled(true);
-        nature.setEnabled(true);
-        religion.setEnabled(true);
-        medicine.setEnabled(true);
-        perception.setEnabled(true);
-        survival.setEnabled(true);
-        deception.setEnabled(true);
-        intimidation.setEnabled(true);
-        performance.setEnabled(true);
-        persuasion.setEnabled(true);
-        animalHandling.setEnabled(true);
-        insight.setEnabled(true);
-
-        features.setEnabled(true);
+        if(attributes.created)
+            attributes.MakeEditable();
+        if(details.created)
+            details.MakeEditable();
+        if(skills.created)
+            skills.MakeEditable();
     }
     @Override
     public void MakeNotEditable() {
-        editTextName.setEnabled(false);
-        editTextClass.setEnabled(false);
-
-        str.setEnabled(false);
-        dex.setEnabled(false);
-        intel.setEnabled(false);
-        con.setEnabled(false);
-        wis.setEnabled(false);
-        cha.setEnabled(false);
-
-        athletics.setEnabled(false);
-        acrobatics.setEnabled(false);
-        sleightOfHand.setEnabled(false);
-        stealth.setEnabled(false);
-        arcana.setEnabled(false);
-        history.setEnabled(false);
-        investigation.setEnabled(false);
-        nature.setEnabled(false);
-        religion.setEnabled(false);
-        medicine.setEnabled(false);
-        perception.setEnabled(false);
-        survival.setEnabled(false);
-        deception.setEnabled(false);
-        intimidation.setEnabled(false);
-        performance.setEnabled(false);
-        persuasion.setEnabled(false);
-        animalHandling.setEnabled(false);
-        insight.setEnabled(false);
-
-        features.setEnabled(false);
+        if(attributes.created)
+            attributes.MakeNotEditable();
+        if(details.created)
+            details.MakeNotEditable();
+        if(skills.created)
+            skills.MakeNotEditable();
     }
 
     public BasicInfoHolder getHolder(){
-        String name =editTextName.getText().toString();
-        return new BasicInfoHolder(
-                name,
-                editTextClass.getText().toString(),
-                "0",
-                str.getText().toString(),dex.getText().toString(),intel.getText().toString(),
-                con.getText().toString(),wis.getText().toString(),cha.getText().toString(),
-                athletics.getText().toString(),acrobatics.getText().toString(),
-                sleightOfHand.getText().toString(),stealth.getText().toString(),
-                arcana.getText().toString(),history.getText().toString(),
-                investigation.getText().toString(),nature.getText().toString(),
-                religion.getText().toString(),medicine.getText().toString(),
-                perception.getText().toString(),survival.getText().toString(),
-                deception.getText().toString(),intimidation.getText().toString(),
-                performance.getText().toString(),persuasion.getText().toString(),
-                animalHandling.getText().toString(),insight.getText().toString(),
-                features.getText().toString()
-        );
+        if(created)
+           return new BasicInfoHolder(
+                    details.getHolder(),
+                    attributes.getHolder(),
+                    skills.getHolder()
+           );
+       else
+            return dataHolder;
     }
 
-    
-    /*//region UpdateStats
+    public void setValues(BasicInfoHolder holder){
+        attributes.setValues(holder.attributes);
+        skills.setValues(holder.skills);
+        details.setValues(holder.details);
+    }
+    public void replaceFragment(Fragment fragment,FragmentManager fragmentManagerMain){
+        FragmentTransaction fragmentTransaction = fragmentManagerMain.beginTransaction();
+        fragmentTransaction.replace(R.id.basicInfoFragment,fragment);
+        fragmentTransaction.commit();
+    }
+    /*
+    //region UpdateStats
     public void Update(){
         String text=str.getText().toString();
         UpdateSTR(text);

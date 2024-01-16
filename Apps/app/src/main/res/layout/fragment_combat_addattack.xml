@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.MainFragments.InventoryFragment">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/labelAttackName"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Attack Name"
+                android:labelFor="@id/editAttackName"
+                />
+            <EditText
+                android:id="@+id/editAttackName"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:ems="10"
+                android:inputType="text"
+                android:importantForAutofill="no"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/labelAttackBonus"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Attack Bonus"
+                android:labelFor="@id/editAttackBonus"
+                />
+            <EditText
+                android:id="@+id/editAttackBonus"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:ems="10"
+                android:inputType="text"
+                android:importantForAutofill="no"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/labelAttackDamage"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Attack Damage"
+                android:labelFor="@id/editAttackDamage"
+                />
+            <EditText
+                android:id="@+id/editAttackDamage"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:ems="10"
+                android:inputType="text"
+                android:importantForAutofill="no"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/labelAttackType"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Attack Type"
+                android:labelFor="@id/editAttackType"
+                />
+            <EditText
+                android:id="@+id/editAttackType"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:ems="10"
+                android:inputType="text"
+                android:importantForAutofill="no"/>
+        </LinearLayout>
+        <Button
+            android:id="@+id/buttonDoneAddAttack"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:text="Add Attack"
+            android:textSize="14sp"
+            />
+    </LinearLayout>
+
+</FrameLayout>

@@ -8,6 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -35,8 +36,8 @@
             android:labelFor="@id/editCurrentHealth"/>
         <EditText
             android:id="@+id/editCurrentHealth"
-            android:layout_width="50dp"
-            android:layout_height="60dp"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
             android:ems="10"
             android:gravity="top"
             android:inputType="text"
@@ -55,21 +56,21 @@
                 android:labelFor="@id/editTempHealth"/>
             <EditText
                 android:id="@+id/editTempHealth"
-                android:layout_width="50dp"
+                android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:ems="10"
                 android:gravity="top"
                 android:inputType="text"
                 android:importantForAutofill="no" />
             <TextView
-                android:id="@+id/labelHitDice"
+                android:id="@+id/labelArmorClass"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Hit Dice"
-                android:labelFor="@id/editHitDice"/>
+                android:text="Armor class"
+                android:labelFor="@id/editArmorClass"/>
             <EditText
-                android:id="@+id/editHitDice"
-                android:layout_width="50dp"
+                android:id="@+id/editArmorClass"
+                android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:ems="10"
                 android:gravity="top"
@@ -80,7 +81,8 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
             <TextView
                 android:id="@+id/labelMovement"
                 android:layout_width="100dp"
@@ -89,7 +91,7 @@
                 android:labelFor="@id/editMovement"/>
             <EditText
                 android:id="@+id/editMovement"
-                android:layout_width="50dp"
+                android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:ems="10"
                 android:gravity="top"
@@ -105,7 +107,7 @@
                 android:labelFor="@id/editInitiative"/>
             <EditText
                 android:id="@+id/editInitiative"
-                android:layout_width="50dp"
+                android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:ems="10"
                 android:gravity="top"
@@ -113,15 +115,46 @@
                 android:importantForAutofill="no"
                 />
         </LinearLayout>
-        <Button
-        android:id="@+id/buttonAddAttack"
-        style="@style/Widget.AppCompat.Button"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginEnd="16dp"
-        android:text="Add attack"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textSize="12sp" />
+        android:layout_height="80dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:id="@+id/labelDeathSavingThrows"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="Death saving throws"
+            android:labelFor="@id/editMovement"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
+        <Button
+            android:id="@+id/buttonRest"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="160dp"
+            android:layout_height="60dp"
+            android:text="Rest"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textSize="12sp" />
+        <Button
+            android:id="@+id/buttonAddAttack"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="160dp"
+            android:layout_height="60dp"
+            android:text="Add attack"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+
+
+
         <TextView
             android:id="@+id/labelAttacks"
             android:layout_width="match_parent"

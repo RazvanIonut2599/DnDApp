@@ -1,13 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.MainFragments.SpellsFragment">
-
-    <TextView
+    tools:context=".Fragments.MainFragments.JournalFragment">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/spellsFragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/labelSpellslots"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Spell slots"
+            android:labelFor="@id/editSpellslots"
+            android:layout_marginTop="10dp"
+            />
+        <EditText
+            android:id="@+id/editSpellslots"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:ems="10"
+            android:inputType="text"
+            android:importantForAutofill="no"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp">
+        <Button
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:id="@+id/addSpell"
+            android:text="Add spell"
+            style="@style/Widget.AppCompat.Button">
+        </Button>
+        <EditText
+            android:id="@+id/addSpellName"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:ems="10"
+            android:inputType="text"
+            android:importantForAutofill="no"/>
+    </LinearLayout>
 
-</FrameLayout>
+
+        <ListView
+            android:id="@+id/listViewSpells"
+            android:layout_width="match_parent"
+            android:layout_height="600dp"
+            android:divider="@color/black"
+            android:dividerHeight="2dp"
+            android:listSelector="@color/black">
+        </ListView>
+
+    </LinearLayout>
+</ScrollView>

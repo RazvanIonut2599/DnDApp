@@ -11,6 +11,6 @@ public class activity_attack_list_view extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_attack_list_view);
+        setContentView(R.layout.listview_attack);
     }
 }

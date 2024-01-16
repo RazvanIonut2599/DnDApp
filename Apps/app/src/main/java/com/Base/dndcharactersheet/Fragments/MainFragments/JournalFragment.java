@@ -11,9 +11,9 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.Base.dndcharactersheet.Fragments.PopupFragments.JournalEntryFragment;
-import com.Base.dndcharactersheet.HolderClasses.JournalEntryHolder;
-import com.Base.dndcharactersheet.HolderClasses.JournalHolder;
+import com.Base.dndcharactersheet.Fragments.PopupFragments.Journal.JournalEntryFragment;
+import com.Base.dndcharactersheet.HolderClasses.Journal.JournalEntryHolder;
+import com.Base.dndcharactersheet.HolderClasses.Journal.JournalHolder;
 import com.Base.dndcharactersheet.ListViewAdapters.JournalEntryAdapter;
 import com.Base.dndcharactersheet.MainActivity;
 import com.Base.dndcharactersheet.R;
@@ -28,13 +28,24 @@ public class JournalFragment extends FragmentBase {
     public Button addJournalEntry;
     public ArrayList<JournalEntryHolder> journalEntryList;
     public ListView journalEntryListView;
+    JournalHolder dataHolder;
 
-    public JournalFragment(MainActivity parent){
+    public JournalFragment(MainActivity parent,JournalHolder dataHolder){
 
         super(R.layout.fragment_journal,parent);
         journalEntryList=new ArrayList<JournalEntryHolder>();
-        journalEntryList.add(new JournalEntryHolder("Title1","Text1"));
-        journalEntryList.add(new JournalEntryHolder("Title2","Text2"));
+        this.dataHolder=dataHolder;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        journalEntryList=dataHolder.journalEntryList;
+        JournalEntryAdapter journalEntryAdapter = new JournalEntryAdapter(mainActivity.getApplicationContext(),this.journalEntryList);
+        journalEntryListView.setAdapter(journalEntryAdapter);
+
+        ((JournalEntryAdapter)(journalEntryListView.getAdapter())).notifyDataSetChanged();
+        MakeNotEditable();
     }
 
     @Nullable
@@ -53,9 +64,6 @@ public class JournalFragment extends FragmentBase {
             }
         });
 
-        JournalEntryAdapter journalEntryAdapter = new JournalEntryAdapter(mainActivity.getApplicationContext(),this.journalEntryList);
-        journalEntryListView.setAdapter(journalEntryAdapter);
-
         addJournalEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,7 +71,6 @@ public class JournalFragment extends FragmentBase {
                 mainActivity.replaceFragment(new JournalEntryFragment(mainActivity,parentFragment));
             }
         });
-        MakeNotEditable();
         return journalVar;
     }
 
@@ -94,9 +101,14 @@ public class JournalFragment extends FragmentBase {
     }
 
     public JournalHolder getHolder(){
-        return new JournalHolder(
-                journalEntryList
-        );
+        if(journalEntryListView!=null)
+            return new JournalHolder(journalEntryList);
+        else
+            return dataHolder;
     }
+    public void setValues(JournalHolder holder){
+        this.dataHolder=holder;
+    }
+
 
 }

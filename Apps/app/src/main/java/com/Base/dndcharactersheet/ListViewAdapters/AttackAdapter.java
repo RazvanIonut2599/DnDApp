@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.Base.dndcharactersheet.HolderClasses.AttackHolder;
+import com.Base.dndcharactersheet.HolderClasses.Combat.AttackHolder;
 import com.Base.dndcharactersheet.R;
 
 import java.util.List;
@@ -39,7 +39,7 @@ public class AttackAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = inflater.inflate(R.layout.activity_attack_list_view, null);
+        convertView = inflater.inflate(R.layout.listview_attack, null);
         TextView txtView =(TextView) convertView.findViewById(R.id.attackName);
         txtView.setText(attacksList.get(position).name);
         TextView txt2View =(TextView) convertView.findViewById(R.id.attackBonus);

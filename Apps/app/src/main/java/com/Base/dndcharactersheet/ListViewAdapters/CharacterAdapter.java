@@ -7,30 +7,28 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.Base.dndcharactersheet.HolderClasses.Journal.JournalEntryHolder;
+import com.Base.dndcharactersheet.HolderClasses.CharacterHolder;
 import com.Base.dndcharactersheet.R;
 
 import java.util.List;
 
-public class JournalEntryAdapter  extends BaseAdapter {
+public class CharacterAdapter extends BaseAdapter {
     Context context;
-    List<JournalEntryHolder> journalEntryList;
+    List<CharacterHolder> characterList;
     LayoutInflater inflater;
-
-    public JournalEntryAdapter(Context ctx, List<JournalEntryHolder> journalEntryList){
+    public CharacterAdapter(Context ctx,List<CharacterHolder> characterList){
         this.context=ctx;
-        this.journalEntryList=journalEntryList;
+        this.characterList=characterList;
         inflater=LayoutInflater.from(ctx);
     }
-
     @Override
     public int getCount() {
-        return journalEntryList.size();
+        return characterList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return journalEntryList.get(position);
+        return characterList.get(position);
     }
 
     @Override
@@ -40,14 +38,9 @@ public class JournalEntryAdapter  extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = inflater.inflate(R.layout.listview_journalentry, null);
-        TextView txtView =(TextView) convertView.findViewById(R.id.journalEntryTitle);
-        txtView.setText(journalEntryList.get(position).Title);
+        convertView=inflater.inflate(R.layout.listview_character,null);
+        TextView txtView =(TextView) convertView.findViewById(R.id.characterName);
+        txtView.setText(characterList.get(position).characterName);
         return convertView;
-    }
-
-    @Override
-    public void notifyDataSetChanged() {
-        super.notifyDataSetChanged();
     }
 }

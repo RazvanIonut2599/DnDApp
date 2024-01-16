@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".ListViewActivities.activity_spell_listview">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <TextView
+        android:id="@+id/spellTitle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Fireball"
+        android:textSize="20sp"
+        android:layout_marginBottom="10dp">
+        </TextView>
+
+        <TextView
+            android:id="@+id/spellsubTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="lv 3"
+            android:textSize="20sp"
+            android:layout_marginBottom="10dp">
+        </TextView>
+    </LinearLayout>
+</LinearLayout>

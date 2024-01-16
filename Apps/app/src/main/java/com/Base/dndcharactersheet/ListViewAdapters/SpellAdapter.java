@@ -7,30 +7,31 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.Base.dndcharactersheet.HolderClasses.Journal.JournalEntryHolder;
+import com.Base.dndcharactersheet.HolderClasses.Spells.SpellInfoHolder;
 import com.Base.dndcharactersheet.R;
 
 import java.util.List;
 
-public class JournalEntryAdapter  extends BaseAdapter {
+public class SpellAdapter extends BaseAdapter {
     Context context;
-    List<JournalEntryHolder> journalEntryList;
+    List<SpellInfoHolder> spellList;
     LayoutInflater inflater;
 
-    public JournalEntryAdapter(Context ctx, List<JournalEntryHolder> journalEntryList){
+    public SpellAdapter(Context ctx,List<SpellInfoHolder> spells){
         this.context=ctx;
-        this.journalEntryList=journalEntryList;
+        this.spellList=spells;
         inflater=LayoutInflater.from(ctx);
+
     }
 
     @Override
     public int getCount() {
-        return journalEntryList.size();
+        return spellList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return journalEntryList.get(position);
+        return spellList.get(position);
     }
 
     @Override
@@ -40,12 +41,15 @@ public class JournalEntryAdapter  extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = inflater.inflate(R.layout.listview_journalentry, null);
-        TextView txtView =(TextView) convertView.findViewById(R.id.journalEntryTitle);
-        txtView.setText(journalEntryList.get(position).Title);
+        convertView = inflater.inflate(R.layout.listview_spell,null);
+        TextView txtView =(TextView) convertView.findViewById(R.id.spellTitle);
+        txtView.setText(spellList.get(position).title);
+
+        TextView txt2View =(TextView) convertView.findViewById(R.id.spellsubTitle);
+        txt2View.setText(spellList.get(position).subtitle);
+
         return convertView;
     }
-
     @Override
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();

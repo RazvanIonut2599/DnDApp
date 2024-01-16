@@ -1,18 +1,23 @@
 package com.Base.dndcharactersheet.HolderClasses;
 
+import com.Base.dndcharactersheet.HolderClasses.BasicInfo.BasicInfoHolder;
+import com.Base.dndcharactersheet.HolderClasses.Combat.CombatHolder;
+import com.Base.dndcharactersheet.HolderClasses.Inventory.InventoryHolder;
+import com.Base.dndcharactersheet.HolderClasses.Journal.JournalHolder;
+import com.Base.dndcharactersheet.HolderClasses.Spells.SpellsHolder;
 import com.google.gson.annotations.SerializedName;
 
 public class MainInformationHolder {
     @SerializedName("basic_info")
-    private BasicInfoHolder basicInfoHolder;
+    public BasicInfoHolder basicInfoHolder;
     @SerializedName("combat_info")
-    private CombatHolder combatHolder;
+    public CombatHolder combatHolder;
     @SerializedName("inventory_info")
-    private InventoryHolder inventoryHolder;
+    public InventoryHolder inventoryHolder;
     @SerializedName("journal_info")
-    private JournalHolder journalHolder;
+    public JournalHolder journalHolder;
     @SerializedName("spells_info")
-    private SpellsHolder spellsHolder;
+    public SpellsHolder spellsHolder;
 
     public MainInformationHolder(
             BasicInfoHolder basicInfo,

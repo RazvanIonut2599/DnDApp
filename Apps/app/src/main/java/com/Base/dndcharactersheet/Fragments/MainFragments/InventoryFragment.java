@@ -10,7 +10,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.Base.dndcharactersheet.HolderClasses.InventoryHolder;
+import com.Base.dndcharactersheet.HolderClasses.Inventory.InventoryHolder;
 import com.Base.dndcharactersheet.MainActivity;
 import com.Base.dndcharactersheet.R;
 
@@ -19,8 +19,18 @@ import InterfacesOrAbstracts.FragmentBase;
 public class InventoryFragment extends FragmentBase {
     public Button buttonInventory;
     public EditText inventory;
-    public InventoryFragment(MainActivity parent){
+    InventoryHolder dataHolder;
+    public InventoryFragment(MainActivity parent,InventoryHolder dataHolder){
         super(R.layout.fragment_inventory,parent);
+        this.dataHolder=dataHolder;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        inventory.setText(dataHolder.inventory);
+        MakeNotEditable();
     }
 
     @Nullable
@@ -29,7 +39,7 @@ public class InventoryFragment extends FragmentBase {
         View inventoryVar = inflater.inflate(R.layout.fragment_inventory,container,false);
 
         inventory=(EditText) inventoryVar.findViewById(R.id.editInventory);
-        MakeNotEditable();
+
         return inventoryVar;
     }
 
@@ -44,8 +54,14 @@ public class InventoryFragment extends FragmentBase {
     }
 
     public InventoryHolder getHolder(){
+        if(inventory!=null)
         return new InventoryHolder(
                 inventory.getText().toString()
         );
+        else return dataHolder;
     }
+    public void setValues(InventoryHolder holder){
+        this.dataHolder=holder;
+    }
+
 }
